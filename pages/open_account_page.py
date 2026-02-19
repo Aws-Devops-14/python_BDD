@@ -10,4 +10,5 @@ class OpenAccountPage(BasePage):
     def open_account(self):
         self.click(self.OPEN_ACCOUNT_LINK)
         self.click(self.OPEN_BTN)
+        print("Waiting for account number...")
         return self.get_text(self.ACCOUNT_ID)
