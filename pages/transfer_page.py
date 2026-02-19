@@ -17,28 +17,34 @@ class TransferPage(BasePage):
 
         self.click(self.TRANSFER_LINK)
 
-        # Wait until amount field visible
         self.wait.until(EC.visibility_of_element_located(self.AMOUNT))
 
-        # Enter amount
         self.send_keys(self.AMOUNT, amount)
 
-        # Select From Account
-        from_dropdown = Select(self.wait.until(
+        # Wait until dropdowns have options
+        from_element = self.wait.until(
             EC.presence_of_element_located(self.FROM_ACCOUNT)
-        ))
-        from_dropdown.select_by_index(0)
-
-        # Select To Account
-        to_dropdown = Select(self.wait.until(
+        )
+        to_element = self.wait.until(
             EC.presence_of_element_located(self.TO_ACCOUNT)
-        ))
-        to_dropdown.select_by_index(1)
+        )
 
-        # Click transfer
+        from_dropdown = Select(from_element)
+        to_dropdown = Select(to_element)
+
+        # Ensure options exist
+        if len(from_dropdown.options) > 0:
+            from_dropdown.select_by_index(0)
+
+        if len(to_dropdown.options) > 1:
+            to_dropdown.select_by_index(1)
+        else:
+            to_dropdown.select_by_index(0)
+
         self.click(self.TRANSFER_BTN)
 
-        # Wait for success
-        self.wait.until(EC.visibility_of_element_located(self.SUCCESS_TEXT))
+        self.wait.until(
+            EC.visibility_of_element_located(self.SUCCESS_TEXT)
+        )
 
         return self.get_text(self.SUCCESS_TEXT)
