@@ -4,11 +4,14 @@ from selenium.webdriver.chrome.options import Options
 class DriverFactory:
 
     @staticmethod
-    def get_driver(browser="chrome"):
+    def get_driver(browser="chrome", headless=False):
 
         if browser == "chrome":
             options = Options()
-            options.add_argument("--headless")
+
+            if headless:
+                options.add_argument("--headless")
+
             options.add_argument("--no-sandbox")
             options.add_argument("--disable-dev-shm-usage")
 
