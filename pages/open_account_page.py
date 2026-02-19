@@ -11,14 +11,18 @@ class OpenAccountPage(BasePage):
     def open_account(self):
         self.click(self.OPEN_ACCOUNT_LINK)
     
-        # Wait until Open Account page loads
+        # Wait for page URL
         self.wait.until(EC.url_contains("openaccount.htm"))
     
-        self.click(self.OPEN_BTN)
+        # STRONG WAIT for button to be clickable
+        open_btn = self.wait.until(
+            EC.element_to_be_clickable(self.OPEN_BTN)
+        )
+        open_btn.click()
     
         print("Waiting for account number...")
     
-        # Wait until account number is visible (STRONG WAIT)
+        # STRONG WAIT for account number to be visible
         account_number = self.wait.until(
             EC.visibility_of_element_located(self.ACCOUNT_ID)
         ).text
