@@ -13,4 +13,8 @@ class BasePage:
         self.wait.until(EC.visibility_of_element_located(locator)).send_keys(value)
 
     def get_text(self, locator):
-        return self.wait.until(EC.visibility_of_element_located(locator)).text
+        # return self.wait.until(EC.visibility_of_element_located(locator)).text
+        element = self.wait.until(
+            EC.presence_of_element_located(locator)
+        )
+        return element.text
