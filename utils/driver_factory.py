@@ -4,7 +4,7 @@ from selenium.webdriver.chrome.options import Options
 class DriverFactory:
 
     @staticmethod
-    def get_driver(browser="chrome", headless=True):
+    def get_driver(browser="chrome", headless=False):
 
         if browser == "chrome":
             options = Options()
